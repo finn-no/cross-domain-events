@@ -232,4 +232,31 @@ suite('xde', function () {
 
 		});
 	});
+
+	suite('targetOrigin', function () {
+		test('should pass * targetOrigin to postMessage as default', function () {
+			xde.sendTo(iframe, 'test');
+			assert.equals(postMessage.getCall(0).args[1], '*');
+		});
+
+		test('should pass specified targetOrigin to postMessage', function () {
+			var TARGET_ORIGIN = 'http://test.com';
+			xde.targetOrigin = TARGET_ORIGIN;
+			xde.sendTo(iframe, 'test');
+			assert.equals(postMessage.getCall(0).args[1], TARGET_ORIGIN);
+		});
+
+		test('should ignore messages from unknown origins', function (done) {
+			var TARGET_ORIGIN = 'http://test.com';
+			var EVENT_NAME = 'test';
+			var spy = sinon.spy();
+			childXde.targetOrigin = TARGET_ORIGIN;
+			childXde.on(EVENT_NAME, spy);
+			xde.sendTo(iframe, EVENT_NAME);
+
+			setTimeout(async(function() {
+				refute.called(spy);
+			}, done), 50);
+		});
+	});
 });
