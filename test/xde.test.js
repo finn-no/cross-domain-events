@@ -1,6 +1,17 @@
 suite('xde', function () {
 	var iframe, childXde, postMessage;
 	var iframeContent = '<!DOCTYPE html><html><head><script src=\'/base/lib/xde.js?'+new Date().getTime()+'\'></script><script>parent.setChildXde(xde);</script></head><body>test</body></html>';
+
+	function asyncDone(fn, done) {
+		return function () {
+			try {
+				fn.apply(this, arguments);
+				done();
+			} catch (e) {
+				done(e);
+			}
+		};
+	}
 	
 	setup(function (done) {
 		window.setChildXde = function (xde) {
@@ -72,10 +83,8 @@ suite('xde', function () {
 		});
 
 		test('should not throw when calling with iframe as otherWindow', function () {
-			console.log('should not throw when calling with iframe as otherWindow');
 			refute.exception(function () {
-				console.log("send texxxst");
-				xde.sendTo(iframe, 'texxxst');
+				xde.sendTo(iframe, 'test');
 			});
 		});
 
@@ -103,21 +112,25 @@ suite('xde', function () {
 		});
 
 		test('should trigger listener on the other side', function (done) {
-			console.log('should trigger listener on the other side');
 			var eventName = 'foo',
 				eventData = 'abc' + new Date().getTime();
-			childXde.on(eventName, function (evt) {
-				try{
-					assert.defined(evt);
-					assert.equals(evt.name, eventName);
-					assert.equals(evt.data, eventData);
-					done();
-				} catch(e) {
-					done(e);
-				}
-			});
+			childXde.on(eventName, asyncDone(function (evt) {
+				assert.defined(evt);
+				assert.equals(evt.name, eventName);
+				assert.equals(evt.data, eventData);
+			}, done));
 
 			xde.sendTo(iframe, eventName, eventData);
+		});
+
+		test('should not throw exception on non-JSON message events', function (done) {
+			var spy = sinon.spy();
+			iframe.contentWindow.onerror = spy;
+			iframe.contentWindow.postMessage('not serialized JSON', '*');
+
+			setTimeout(asyncDone(function () {
+				sinon.assert.notCalled(spy);
+			}, done), 50);
 		});
 	});
 });
