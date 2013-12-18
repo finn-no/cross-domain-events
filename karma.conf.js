@@ -7,7 +7,7 @@ module.exports = function (config) {
         	'lib/**/*.js',
             'test/**/*.js',
         ],
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
         singleRun: false,
         autoWatch: true,
         client: {
