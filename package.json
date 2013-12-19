@@ -20,10 +20,11 @@
   ],
   "contributors": [
     "Gregers Rygg <gregers@finn.no>",
-    "Michael Gunnulfsen <michael.gunnulfsen@finn.no>"
+    "Michael Gunnulfsen <michael.gunnulfsen@finn.no>",
+    "Sveinung Røsaker <sveinung.rosaker@gmail.com"
   ],
   "scripts": {
-    "test": "karma start"
+    "test": "./node_modules/.bin/karma start"
   },
   "main": "lib/xde.js",
   "devDependencies": {
@@ -38,6 +39,7 @@
     "mocha": "~1.15.1",
     "karma-mocha": "~0.1.1",
     "karma-commonjs": "0.0.3",
-    "karma-sinon": "~1.0.0"
+    "karma-sinon": "~1.0.0",
+    "karma-referee": "~0.2.0"
   }
 }
