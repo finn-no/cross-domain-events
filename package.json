@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Event-like api for postMessage to send objects between cross-domain frames",
   "license": "MIT",
-  "author": "Gregers Rygg <gregers@finn.no>",
+  "author": "FINN.no AS",
   "repository": {
     "type": "git",
     "url": "git@github.com:finn-no/cross-domain-events.git"
@@ -15,6 +15,10 @@
     "xde",
     "events",
     "pubsub"
+  ],
+  "contributors": [
+    "Gregers Rygg <gregers@finn.no>",
+    "Michael Gunnulfsen <michael.gunnulfsen@finn.no>"
   ],
   "scripts": {
     "test": "karma start"
