@@ -1,6 +1,7 @@
 suite('xde', function () {
 	var iframe, childXde, postMessage;
-	var iframeContent = '<!DOCTYPE html><html><head><script src=\'/base/lib/xde.js?'+new Date().getTime()+'\'></script><script>parent.setChildXde(xde);</script></head><body>test</body></html>';
+	var miniEvtListener = function (el, n, m, u) {el.addEventListener(n, m, u);};
+	var iframeContent = '<!DOCTYPE html><html><head><script>var eventListener={add:'+miniEvtListener.toString()+'};</script><script src=\'/base/lib/xde.js?'+new Date().getTime()+'\'></script><script>parent.setChildXde(xde);</script></head><body>test</body></html>';
 
 	function async(fn, done) {
 		return function () {

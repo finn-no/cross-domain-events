@@ -4,6 +4,7 @@ module.exports = function (config) {
         frameworks: ['mocha', 'sinon', 'referee'],
         plugins: ['karma-*'],
         files: [
+            'node_modules/eventlistener/eventlistener.js',
         	'lib/**/*.js',
             'test/**/*.js',
         ],

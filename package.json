@@ -8,7 +8,9 @@
     "type": "git",
     "url": "git@github.com:finn-no/cross-domain-events.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "eventlistener": "0.0.1"
+  },
   "keywords": [
     "cross-domain",
     "postmessage",
