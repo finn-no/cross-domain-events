@@ -13,6 +13,17 @@ suite('xde', function () {
 			}
 		};
 	}
+
+	function dispatchMessageEvt (msg) {
+		var evt;
+		try {
+			evt = new MessageEvent('message', {data: msg});
+		} catch (e) {
+			evt = document.createEvent('MessageEvent');
+			evt.initMessageEvent('message', true, true, msg);
+		}
+		window.dispatchEvent(evt);
+	}
 	
 	setup(function (done) {
 		window.setChildXde = function (xde) {
@@ -73,6 +84,20 @@ suite('xde', function () {
 
 			xde.on(eventName, spy);
 			sinon.assert.notCalled(spy);
+		});
+
+		test('should not use JSON.parse when message data is an object', function () {
+			var spy = sinon.spy(JSON, "parse");
+			dispatchMessageEvt({foo: 'bar'});
+			sinon.assert.notCalled(spy);
+			spy.restore();
+		});
+
+		test('should try JSON.parse when message data is a string', function () {
+			var spy = sinon.spy(JSON, "parse");
+			dispatchMessageEvt('{"foo":"bar"}');
+			sinon.assert.calledOnce(spy);
+			spy.restore();
 		});
 	});
 
@@ -192,6 +217,21 @@ suite('xde', function () {
 			setTimeout(async(function () {
 				sinon.assert.notCalled(spy);
 			}, done), 50);
+		});
+
+		test('should not stringify to JSON when browser supports postMessage with objects', function () {
+			var spy = sinon.spy(JSON, 'stringify');
+			xde.sendTo(iframe, 'test', {a: 1});
+			sinon.assert.notCalled(spy);
+			spy.restore();
+		});
+
+		test('should stringify to JSON when browser doesn\'t support postMessage with objects', function () {
+			xde._reset(true);
+			var spy = sinon.spy(JSON, 'stringify');
+			xde.sendTo(iframe, 'test', {a: 1});
+			sinon.assert.calledOnce(spy);
+			spy.restore();
 		});
 	});
 
