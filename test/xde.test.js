@@ -14,13 +14,13 @@ suite('xde', function () {
 		};
 	}
 
-	function dispatchMessageEvt (msg) {
+	function dispatchMessageEvt (msg, origin, source) {
 		var evt;
 		try {
-			evt = new MessageEvent('message', {data: msg});
+			evt = new MessageEvent('message', {data: msg, origin: origin, source: source});
 		} catch (e) {
 			evt = document.createEvent('MessageEvent');
-			evt.initMessageEvent('message', true, true, msg);
+			evt.initMessageEvent('message', true, true, msg, origin, 1, source);
 		}
 		window.dispatchEvent(evt);
 	}
@@ -98,6 +98,21 @@ suite('xde', function () {
 			dispatchMessageEvt('{"foo":"bar"}');
 			sinon.assert.calledOnce(spy);
 			spy.restore();
+		});
+
+		test('should pass source and origin to the event object', function (done) {
+			var source = window;
+			var origin = location.href;
+			
+			xde.on('test', function (evt) {
+				assert.equals(source, evt.source);
+				assert.equals(origin, evt.origin);
+				done();
+			});
+			dispatchMessageEvt({
+				__xde: true,
+				name: 'test'
+			}, origin, source);
 		});
 	});
 
