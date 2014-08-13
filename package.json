@@ -24,7 +24,7 @@
     "Sveinung Røsaker <sveinung.rosaker@gmail.com"
   ],
   "scripts": {
-    "test": "./node_modules/.bin/karma start --single-run"
+    "test": "./node_modules/karma/bin/karma start --single-run"
   },
   "main": "lib/xde.js",
   "devDependencies": {
