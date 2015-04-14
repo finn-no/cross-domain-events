@@ -1,6 +1,6 @@
 {
   "name": "cross-domain-events",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Event-like api for postMessage to send objects between cross-domain frames",
   "license": "MIT",
   "author": "FINN.no AS",
