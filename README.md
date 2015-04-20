@@ -5,6 +5,9 @@ An event-like interface to postMessage for cross domain communication.
 
 [![Build Status](https://travis-ci.org/finn-no/cross-domain-events.png)](https://travis-ci.org/finn-no/cross-domain-events)
 
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/cross-domain-events.svg)](https://saucelabs.com/u/cross-domain-events)
+
+
 postMessage was implemented in Internet Explorer 8, but only supports sending text strings. Modern browsers can send objects, but if you want to listen for different kind of objects you have to implement your own delegation.
 
 Example
