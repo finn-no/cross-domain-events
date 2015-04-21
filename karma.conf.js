@@ -14,9 +14,9 @@ function addAndroid(output) {
 }
 
 function addIOS(output) {
-    output['ios_safari_7-1'] = add('iphone', 'OS X 10.9', '7.1');
-    output['ios_safari_8-2'] = add('iphone', 'OS X 10.9', '8.0');
-    output['ios_safari_8-2'] = add('iphone', 'OS X 10.10', '8.2');
+    output['ios_safari_7-1'] = add('iphone', 'OS X 10.9', '7.1', 'iPhone Simulator');
+    output['ios_safari_8-0'] = add('iphone', 'OS X 10.10', '8.0', 'iPhone Simulator');
+    output['ios_safari_8-2'] = add('iphone', 'OS X 10.10', '8.2', 'iPhone Simulator');
 }
 
 function addChrome(output) {
@@ -67,8 +67,8 @@ module.exports = function(config) {
         settings.reporters = ['progress'];
         settings.browsers = ['PhantomJS'];
     } else {
-        settings.browserDisconnectTimeout = 60000;
-        settings.browserNoActivityTimeout = 60000;
+        settings.browserDisconnectTimeout = 60000 * 2;
+        settings.browserNoActivityTimeout = 60000 * 2;
         //settings.browserDisconnectTolerance = 1;
         settings.captureTimeout = 60000 * 3;
         settings.sauceLabs = {
