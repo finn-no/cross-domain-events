@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src='/base/node_modules/karma-es5-shim/node_modules/es5-shim/es5-shim.js'></script>
+    <script src='/base/test/helpers/helpers.js'></script>
+    <script>
+        window.spy = wrapAndSpy(window, 'postMessage');
+        [
+            '/base/node_modules/eventlistener/eventlistener.js',
+            '/base/lib/xde.js?a=b'
+        ].forEach(function(src){
+            document.write('<scr'+'ipt src="'+src+'?rand=' + Math.round(Math.random()*10000000) +'"></scr'+'ipt>');
+        });
+    </script>
+</head>
+<body>
+    <h1>ChildIframe</h1>
+    <script>
+        window.parent.initXde(window);
+        window.spy.reset();
+    </script>
+</body>
+</html>

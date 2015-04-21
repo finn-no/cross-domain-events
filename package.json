@@ -1,6 +1,6 @@
 {
   "name": "cross-domain-events",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Event-like api for postMessage to send objects between cross-domain frames",
   "license": "MIT",
   "author": "FINN.no AS",
@@ -24,22 +24,24 @@
     "Sveinung Røsaker <sveinung.rosaker@gmail.com"
   ],
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start --single-run"
+    "test": "./node_modules/karma/bin/karma start --single-run",
+    "test-ci": "BROWSER_TYPE=android npm test && BROWSER_TYPE=ios npm test && BROWSER_TYPE=ienew npm test && BROWSER_TYPE=ie npm test && BROWSER_TYPE=firefox npm test && BROWSER_TYPE=chrome npm test",
+    "validate": "finn-js-code-style lib && jscs -c node_modules/finn-js-code-style/.jscsrc lib"
   },
   "main": "lib/xde.js",
   "devDependencies": {
-    "karma-script-launcher": "~0.1.0",
-    "karma-chrome-launcher": "~0.1.1",
-    "karma-html2js-preprocessor": "~0.1.0",
-    "karma-firefox-launcher": "~0.1.2",
-    "requirejs": "~2.1.9",
-    "karma-requirejs": "~0.2.0",
-    "karma-phantomjs-launcher": "~0.1.1",
-    "karma": "0.12.21",
-    "mocha": "~1.15.1",
-    "karma-mocha": "~0.1.1",
-    "karma-commonjs": "0.0.3",
+    "finn-js-code-style": "^4.3.0",
+    "jscs": "^1.12.0",
+    "karma": "^0.12.31",
+    "karma-es5-shim": "0.0.4",
+    "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-referee": "^0.4.2",
+    "karma-sauce-launcher": "^0.2.10",
     "karma-sinon": "~1.0.0",
-    "karma-referee": "~0.2.0"
+    "mocha": "^2.2.4",
+    "referee": "^1.1.1",
+    "referee-sinon": "^1.0.2",
+    "sinon": "^1.14.1"
   }
 }
