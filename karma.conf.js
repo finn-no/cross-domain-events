@@ -15,12 +15,12 @@ function addAndroid(output) {
 
 function addIOS(output) {
     output['ios_safari_7-1'] = add('iphone', 'OS X 10.9', '7.1', 'iPhone Simulator');
-    output['ios_safari_8-0'] = add('iphone', 'OS X 10.10', '8.0', 'iPhone Simulator');
+    // output['ios_safari_8-0'] = add('iphone', 'OS X 10.10', '8.0', 'iPhone Simulator');
     output['ios_safari_8-2'] = add('iphone', 'OS X 10.10', '8.2', 'iPhone Simulator');
 }
 
 function addChrome(output) {
-    output['chrome_35'] = add('chrome', 'Windows 7', '35');
+    // output['chrome_35'] = add('chrome', 'Windows 7', '35');
     output['chrome_41'] = add('chrome', 'Windows 8.1', '41');
     output['chrome_beta'] = add('chrome', 'Windows 8.1', 'beta');
 }
@@ -30,9 +30,12 @@ function addFirefox(output) {
     output['firefox_37'] = add('firefox', 'Windows 8.1', '37');
 }
 
-function addIE(output) {
-    // output['ie_11'] = add('internet explorer', 'Windows 8.1', '11');
+function addIENew(output) {
+    output['ie_11'] = add('internet explorer', 'Windows 8.1', '11');
     output['ie_10'] = add('internet explorer', 'Windows 8', '10');
+}
+
+function addIE(output) {
     output['ie_09'] = add('internet explorer', 'Windows 7', '9');
     output['ie_08'] = add('internet explorer', 'Windows 7', '8');
 }
@@ -91,6 +94,8 @@ module.exports = function(config) {
             addFirefox(settings.customLaunchers);
         } else if (process.env.BROWSER_TYPE === 'ie') {
             addIE(settings.customLaunchers);
+        } else if (process.env.BROWSER_TYPE === 'ienew') {
+            addIENew(settings.customLaunchers);
         } else {
             console.error('Missing / Unknown pass ' + process.env.PASS);
             process.exit(1);

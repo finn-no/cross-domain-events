@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "test": "./node_modules/karma/bin/karma start --single-run",
-    "test-ci": "BROWSER_TYPE=ios npm test && BROWSER_TYPE=ie npm test && BROWSER_TYPE=firefox npm test && BROWSER_TYPE=chrome npm test && BROWSER_TYPE=android npm test",
+    "test-ci": "BROWSER_TYPE=ios npm test && BROWSER_TYPE=ienew npm test && BROWSER_TYPE=ie npm test && BROWSER_TYPE=firefox npm test && BROWSER_TYPE=chrome npm test && BROWSER_TYPE=android npm test",
     "validate": "finn-js-code-style lib && jscs -c node_modules/finn-js-code-style/.jscsrc lib"
   },
   "main": "lib/xde.js",
