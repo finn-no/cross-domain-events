@@ -142,7 +142,7 @@ describe('xde', function () {
 
         it('should not throw when calling with iframeElem as otherWindow', function () {
             refute.exception(function () {
-                xde.sendTo(iframeElem, 'test');
+                xde.sendTo(iframeWindow, 'test');
             });
         });
 
@@ -154,13 +154,13 @@ describe('xde', function () {
 
         it('should throw if event name is not given', function () {
             assert.exception(function(){
-                xde.sendTo(iframeElem);
+                xde.sendTo(iframeWindow);
             });
         });
 
         it('should throw if event name is empty string', function () {
             assert.exception(function () {
-                xde.sendTo(iframeElem, '');
+                xde.sendTo(iframeWindow, '');
             });
         });
 
@@ -188,7 +188,7 @@ describe('xde', function () {
                 assert.equals(evt.name, eventName);
             }, done));
 
-            xde.sendTo(iframeElem, eventName);
+            xde.sendTo(iframeWindow, eventName);
         });
 
         it('should send event data to the listener', function (done) {
@@ -201,7 +201,7 @@ describe('xde', function () {
                 assert.equals(evt.data, eventData);
             }, done));
 
-            xde.sendTo(iframeElem, eventName, eventData);
+            xde.sendTo(iframeWindow, eventName, eventData);
         });
 
         it('should not throw exception on non-JSON message events', function (done) {
@@ -254,7 +254,7 @@ describe('xde', function () {
 
         it('should not throw error or call any callbacks if no listners for an event name', function (done) {
             var spy = sinon.spy();
-            iframeElem.contentWindow.onerror = spy;
+            iframeWindow.onerror = spy;
 
             iframeWindow.xde.on('foo', spy);
             xde.sendTo(iframeWindow, 'bar');
@@ -268,7 +268,7 @@ describe('xde', function () {
 
             it('should not stringify to JSON when browser supports postMessage with objects', function () {
                 var spy = sinon.spy(JSON, 'stringify');
-                xde.sendTo(iframeElem, 'test', {a: 1});
+                xde.sendTo(iframeWindow, 'test', {a: 1});
                 sinon.assert.notCalled(spy);
             });
         }
@@ -277,7 +277,7 @@ describe('xde', function () {
             after(cleanupSpy);
             it('should stringify to JSON when browser doesn\'t support postMessage with objects', function () {
                 var spy = this.spy = sinon.spy(JSON, 'stringify');
-                xde.sendTo(iframeElem, 'test', {a: 1});
+                xde.sendTo(iframeWindow, 'test', {a: 1});
                 sinon.assert.calledOnce(spy);
             });
         }
@@ -314,7 +314,7 @@ describe('xde', function () {
 
             iframeWindow.xde.off(eventName, spy1);
 
-            xde.sendTo(iframeElem, eventName);
+            xde.sendTo(iframeWindow, eventName);
 
             asyncAssert(function () {
                 sinon.assert.calledOnce(spy2);
