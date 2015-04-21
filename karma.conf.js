@@ -25,8 +25,8 @@ function addChrome(output) {
 }
 
 function addFirefox(output) {
-    output['firefox_30'] = add('firefox', null, null, '30');
-    output['firefox_36'] = add('firefox', null, null, '36');
+    output['firefox_30'] = add('firefox', 'Windows 8', '30');
+    output['firefox_36'] = add('firefox', 'Windows 8.1', '37');
 }
 
 function addIE(output) {
