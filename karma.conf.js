@@ -1,40 +1,3 @@
-function add(b, p, ver, device) {
-    return {
-        base: 'SauceLabs',
-        browserName: b,
-        platform: p,
-        version: ver,
-        deviceName: device
-    };
-}
-
-var browsers = {
-    'android': {
-        'android_4': add('android', 'Linux', '4.1', 'Android Emulator'),
-        'android_4-4': add('android', 'Linux', '4.4', 'Android Emulator')
-    },
-    'ios': {
-        'ios_safari_7-1': add('iphone', 'OS X 10.9', '7.1', 'iPhone Simulator'),
-        'ios_safari_8-2': add('iphone', 'OS X 10.10', '8.2', 'iPhone Simulator')
-    },
-    'chrome': {
-        'chrome_41': add('chrome', 'Windows 8.1', '41'),
-        'chrome_beta': add('chrome', 'Windows 8.1', 'beta')
-    },
-    'firefox': {
-        'firefox_30': add('firefox', 'Windows 8', '30'),
-        'firefox_37': add('firefox', 'Windows 8.1', '37')
-    },
-    'ienew': {
-        'ie_11': add('internet explorer', 'Windows 8.1', '11'),
-        'ie_10': add('internet explorer', 'Windows 8', '10')
-    },
-    'ie': {
-        'ie_09': add('internet explorer', 'Windows 7', '9'),
-        'ie_08': add('internet explorer', 'Windows 7', '8')
-    }
-};
-
 module.exports = function(config) {
     var settings = {
         basePath: '',
@@ -80,7 +43,7 @@ module.exports = function(config) {
         // https://github.com/karma-runner/karma-sauce-launcher/issues/40
         // should either add better setup for running max currently or
         var key = process.env.BROWSER_TYPE;
-        var target = browsers[key];
+        var target = require('./ci-browsers.js')[key];
         if (!target) {
             console.error('Missing / Unknown BROWSER_TYPE ' + process.env.BROWSER_TYPE);
             process.exit(1);
