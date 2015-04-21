@@ -66,6 +66,9 @@ module.exports = function(config) {
         settings.reporters = ['progress'];
         settings.browsers = ['PhantomJS'];
     } else {
+        settings.browserDisconnectTimeout = 60000;
+        settings.browserNoActivityTimeout = 60000;
+        //settings.browserDisconnectTolerance = 1;
         settings.captureTimeout = 60000 * 3;
         settings.sauceLabs = {
             testName: 'XDE',
