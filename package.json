@@ -25,10 +25,13 @@
   ],
   "scripts": {
     "test": "./node_modules/karma/bin/karma start --single-run",
-    "test-ci": "BROWSER_TYPE=ie npm test && BROWSER_TYPE=chrome npm test && BROWSER_TYPE=firefox npm test && BROWSER_TYPE=ios npm test && BROWSER_TYPE=android npm test"
+    "test-ci": "BROWSER_TYPE=ie npm test && BROWSER_TYPE=chrome npm test && BROWSER_TYPE=firefox npm test && BROWSER_TYPE=ios npm test && BROWSER_TYPE=android npm test",
+    "validate": "finn-js-code-style lib && jscs -c node_modules/finn-js-code-style/.jscsrc lib"
   },
   "main": "lib/xde.js",
   "devDependencies": {
+    "finn-js-code-style": "^4.3.0",
+    "jscs": "^1.12.0",
     "karma": "^0.12.31",
     "karma-es5-shim": "0.0.4",
     "karma-mocha": "^0.1.10",
