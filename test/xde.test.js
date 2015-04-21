@@ -15,9 +15,14 @@ describe('xde', function () {
                 fn.apply(this, arguments);
                 done();
             } catch (e) {
+                console.error(e);
                 done(e);
             }
         };
+    }
+
+    function asyncAssert(fn, done) {
+        return setTimeout(async(fn, done), 50);
     }
 
     function sendPostMessage(data, cb) {
@@ -204,20 +209,20 @@ describe('xde', function () {
             iframeWindow.onerror = spy;
             iframeWindow.postMessage('not serialized JSON', '*');
 
-            setTimeout(async(function () {
+            asyncAssert(function () {
                 sinon.assert.notCalled(spy);
-            }, done), 50);
+            }, done);
         });
 
         it('should ignore json messages not sent by xde', function (done) {
             var spy = sinon.spy();
             var data = {data : 'foo', name : 'bar'};
             iframeWindow.xde.on(data.name, spy);
-            iframeElem.contentWindow.postMessage(JSON.stringify(data), '*');
+            iframeWindow.postMessage(JSON.stringify(data), '*');
 
-            setTimeout(async(function () {
+            asyncAssert(function () {
                 sinon.assert.notCalled(spy);
-            }, done), 50);
+            }, done);
         });
 
         it('should allow multiple listeners for same event name', function (done) {
@@ -225,12 +230,12 @@ describe('xde', function () {
             var evtName = 'multiple';
             iframeWindow.xde.on(evtName, spy1);
             iframeWindow.xde.on(evtName, spy2);
-            xde.sendTo(iframeElem, evtName);
+            xde.sendTo(iframeWindow, evtName);
 
-            setTimeout(async(function () {
+            asyncAssert(function () {
                 sinon.assert.calledOnce(spy1);
                 sinon.assert.calledOnce(spy2);
-            }, done), 50);
+            }, done);
         });
 
         it('should only trigger listeners for the sent event name', function (done) {
@@ -239,12 +244,12 @@ describe('xde', function () {
             var evtName2 = 'bar';
             iframeWindow.xde.on(evtName1, spy1);
             iframeWindow.xde.on(evtName2, spy2);
-            xde.sendTo(iframeElem, evtName1);
+            xde.sendTo(iframeWindow, evtName1);
 
-            setTimeout(async(function () {
+            asyncAssert(function () {
                 sinon.assert.calledOnce(spy1);
                 sinon.assert.notCalled(spy2);
-            }, done), 50);
+            }, done);
         });
 
         it('should not throw error or call any callbacks if no listners for an event name', function (done) {
@@ -252,10 +257,10 @@ describe('xde', function () {
             iframeElem.contentWindow.onerror = spy;
 
             iframeWindow.xde.on('foo', spy);
-            xde.sendTo(iframeElem, 'bar');
-            setTimeout(async(function () {
+            xde.sendTo(iframeWindow, 'bar');
+            asyncAssert(function () {
                 sinon.assert.notCalled(spy);
-            }, done), 50);
+            }, done);
         });
 
         if (xde.onlyStringSupport === false) {
@@ -293,10 +298,10 @@ describe('xde', function () {
             iframeWindow.xde.on(eventName, spy);
             iframeWindow.xde.off(eventName, spy);
 
-            xde.sendTo(iframeElem, eventName);
-            setTimeout(async(function () {
+            xde.sendTo(iframeWindow, eventName);
+            asyncAssert(function () {
                 sinon.assert.notCalled(spy);
-            }, done), 50);
+            }, done);
         });
 
         it('should only remove the given listener on a particular event name', function (done) {
@@ -311,10 +316,10 @@ describe('xde', function () {
 
             xde.sendTo(iframeElem, eventName);
 
-            setTimeout(async(function () {
+            asyncAssert(function () {
                 sinon.assert.calledOnce(spy2);
                 sinon.assert.notCalled(spy1);
-            }, done), 50);
+            }, done);
 
         });
     });
@@ -334,13 +339,12 @@ describe('xde', function () {
             iframeWindow.xde.targetOrigin = 'http://test.com';
             iframeWindow.xde.sendTo(window, 'test', {payload: Math.random()});
 
-            setTimeout(function(){
+            asyncAssert(function(){
                 iframeWindow.xde.targetOrigin = '*';
                 assert.equals(spy.callCount, 1);
                 assert.equals(spy.getCall(0).args[1], 'http://test.com');
                 spy.restore();
-                done();
-            }, 10);
+            }, done);
 
         });
 
@@ -353,9 +357,9 @@ describe('xde', function () {
             iframeWindow.xde.on(EVENT_NAME, spy);
             xde.sendTo(iframeWindow, EVENT_NAME);
 
-            setTimeout(async(function() {
+            asyncAssert(function() {
                 refute.called(spy);
-            }, done), 50);
+            }, done);
         });
     });
 });
