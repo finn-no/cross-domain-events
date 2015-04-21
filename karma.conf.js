@@ -13,20 +13,19 @@ module.exports = function(config) {
             'lib/xde.js',
             'test/*.test.js'
         ],
+        reporters: ['progress'],
         browsers: ['PhantomJS'],
         singleRun: false,
         autoWatch: true,
+        colors: true,
+        logLevel: config.LOG_INFO,
         client: {
-            captureConsole: true,
-            mocha: {
-                ui: 'bdd'
-            }
+            captureConsole: true
         }
     };
 
     if (!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY) {
-        settings.reporters = ['progress'];
-        settings.browsers = ['PhantomJS'];
+        // keep
     } else {
         settings.browserDisconnectTimeout = 60000 * 2;
         settings.browserNoActivityTimeout = 60000 * 2;
@@ -57,5 +56,7 @@ module.exports = function(config) {
         settings.browsers = Object.keys(settings.customLaunchers);
     }
 
-    config.set(settings);
+
+
+    return config.set(settings);
 };

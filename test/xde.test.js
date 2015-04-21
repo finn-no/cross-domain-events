@@ -45,8 +45,8 @@ describe('xde', function () {
         iframeElem.style.width = '300px';
         iframeElem.style.height = '100px';
         iframeElem.style.backgroundColor = 'red';
+        iframeElem.src  = '/base/test/fixtures/childIframe.html?' + (+new Date()) + '=' + encodeURIComponent(this.currentTest.title);
         document.body.appendChild(iframeElem);
-        iframeElem.src  = '/base/test/fixtures/childIframe.html?' + (+new Date());
     });
 
     afterEach(function teardown () {
