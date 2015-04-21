@@ -11,7 +11,7 @@ function add(b, p, ver, device) {
 var browsers = {
     'android': {
         'android_4': add('android', 'Linux', '4.1', 'Android Emulator'),
-        'android_4-4': add('android', 'Linux', '4.4', 'Google Nexus 7 HD Emulator')
+        'android_4-4': add('android', 'Linux', '4.4', 'Android Emulator')
     },
     'ios': {
         'ios_safari_7-1': add('iphone', 'OS X 10.9', '7.1', 'iPhone Simulator'),
@@ -82,7 +82,7 @@ module.exports = function(config) {
         var key = process.env.BROWSER_TYPE;
         var target = browsers[key];
         if (!target) {
-            console.error('Missing / Unknown pass ' + process.env.PASS);
+            console.error('Missing / Unknown BROWSER_TYPE ' + process.env.BROWSER_TYPE);
             process.exit(1);
         }
 
