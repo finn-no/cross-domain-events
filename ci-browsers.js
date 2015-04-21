@@ -10,10 +10,10 @@ function add(b, p, ver, device) {
 
 module.exports = {
     'android': {
-        'android_4': add('android', 'Linux', '4.1', 'Android Emulator'),
+        'android_4-1': add('android', 'Linux', '4.1', 'Android Emulator'),
         // 4.4 fails on first try via saucelabs, hard to track down...
         // 'android_4-4': add('android', 'Linux', '4.4', 'Android Emulator'),
-        'android_4-4': add('android', 'Linux', '5.1', 'Android Emulator')
+        'android_5-1': add('android', 'Linux', '5.1', 'Android Emulator')
     },
     'ios': {
         'ios_safari_7-1': add('iphone', 'OS X 10.9', '7.1', 'iPhone Simulator'),
