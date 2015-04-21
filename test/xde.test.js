@@ -34,7 +34,7 @@ describe('xde', function () {
     }
 
     beforeEach(function (done) {
-        this.timeout(10000); // saucelabs may need more time to load the iframe
+        this.timeout(15000); // saucelabs may need more time to load the iframe
         window.initXde = function (_win) {
             iframeWindow = _win.window; //accessing window.window for IE8
             done();
