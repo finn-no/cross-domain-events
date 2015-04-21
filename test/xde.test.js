@@ -39,6 +39,11 @@ describe('xde', function () {
             done();
         };
         iframeElem = document.createElement('iframe');
+        iframeElem.width = '300px';
+        iframeElem.height = '100px';
+        iframeElem.style.width = '300px';
+        iframeElem.style.height = '100px';
+        iframeElem.style.backgroundColor = 'red';
         document.body.appendChild(iframeElem);
         iframeElem.src  = '/base/test/fixtures/childIframe.html?' + (+new Date());
     });

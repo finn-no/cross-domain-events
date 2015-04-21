@@ -15,6 +15,7 @@ function addAndroid(output) {
 
 function addIOS(output) {
     output['ios_safari_7-1'] = add('iphone', 'OS X 10.9', '7.1');
+    output['ios_safari_8-2'] = add('iphone', 'OS X 10.9', '8.0');
     output['ios_safari_8-2'] = add('iphone', 'OS X 10.10', '8.2');
 }
 
