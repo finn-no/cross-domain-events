@@ -30,10 +30,10 @@ function addFirefox(output) {
 }
 
 function addIE(output) {
-    output['ie_11'] = add('internet explorer', 'Windows 8.1', '11');
+    // output['ie_11'] = add('internet explorer', 'Windows 8.1', '11');
     output['ie_10'] = add('internet explorer', 'Windows 8', '10');
-    // output['ie_09'] = add('internet explorer', 'Windows 7', '9');
-    // output['ie_08'] = add('internet explorer', 'Windows 7', '8');
+    output['ie_09'] = add('internet explorer', 'Windows 7', '9');
+    output['ie_08'] = add('internet explorer', 'Windows 7', '8');
 }
 
 module.exports = function(config) {
