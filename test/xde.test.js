@@ -35,7 +35,13 @@ describe('xde', function () {
 
     beforeEach(function (done) {
         this.timeout(20000); // saucelabs may need more time to load the iframe
+        // var time = 0;
+        // var timer = setInterval(function(){
+        //     time += 1;
+        //     console.log('time:', time);
+        // }, 1000);
         window.initXde = function (_win) {
+            // clearTimeout(timer);
             iframeWindow = _win.window; //accessing window.window for IE8
             done();
         };
@@ -45,8 +51,11 @@ describe('xde', function () {
         iframeElem.style.width = '300px';
         iframeElem.style.height = '100px';
         iframeElem.style.backgroundColor = 'red';
-        iframeElem.src  = '/base/test/fixtures/childIframe.html?' + (+new Date()) + '=' + encodeURIComponent(this.currentTest.title);
-        document.body.appendChild(iframeElem);
+        setTimeout(function(){
+            // we get more stable tests on saucelabs if we wait some
+            document.body.appendChild(iframeElem);
+            iframeElem.src  = '/base/test/fixtures/childIframe.html?' + (+new Date());
+        }, 100);
     });
 
     afterEach(function teardown () {
